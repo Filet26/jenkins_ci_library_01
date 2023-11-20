@@ -1,3 +1,14 @@
 def call() {
-    echo 'Mayonnaise is not an instrument.'
+    pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'echo haha'
+            }
+        }
+
+    }
+
+}
 }
