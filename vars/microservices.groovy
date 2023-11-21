@@ -44,7 +44,7 @@ def call(dockerRepoName, imageName) {
                     remote.name = 'azureuser'
                     
                     withCredentials([sshUserPrivateKey(credentialsId: 'filetkafkaKEY', keyFileVariable: 'SSH_KEY_FILE', usernameVariable: 'SSH_USER')]) {
-                        remote.identityFile = $SSH_KEY_FILE
+                        remote.identityFile = "${SSH_KEY_FILE}"
                     }
                     
                     sh """ssh -o StrictHostKeyChecking=no -i $SSH_KEY_FILE ${SSH_USER}@20.150.206.132 <<EOF
