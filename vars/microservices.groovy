@@ -35,7 +35,7 @@ def call(dockerRepoName, imageName) {
             }
         }
 
-        stage('Deploy to Kafka Server - Docker Compose')
+        stage('Deploy to Kafka Server - Docker Compose') {
             steps { 
             script {
                 def remote = [:]
@@ -49,6 +49,7 @@ def call(dockerRepoName, imageName) {
                 sshCommand remote: remote, command: 'echo "Haha!"'
             }
         } 
+    }
         }
 
     }
