@@ -36,20 +36,23 @@ def call(dockerRepoName, imageName) {
         }
 
         stage('Deploy to Kafka Server - Docker Compose') {
-            steps { 
-            script {
-                def remote = [:]
-                remote.user = 'azureuser'
-                remote.host = '20.150.206.132'
-                remote.name = 'azureuser'
-                withCredentials([sshUserPrivateKey(credentialsId: 'filetkafkaKEY', keyFileVariable: 'SSH_KEY_FILE')]) {
-                remote.identityFile = SSH_KEY_FILE
+            steps {
+                script {
+                    def remote = [:]
+                    remote.user = 'azureuser'
+                    remote.host = '20.150.206.132'
+                    remote.name = 'azureuser'
+                    
+                    withCredentials([sshUserPrivateKey(credentialsId: 'filetkafkaKEY', keyFileVariable: 'SSH_KEY_FILE')]) {
+                        remote.identityFile = SSH_KEY_FILE
+                    }
+                    
+                    remote.allowAnyHosts = 'true'
+                    sshCommand remote: remote, command: 'cd /home/azureuser'
+                }
             }
-                remote.allowAnyHosts = 'true'
-                sshCommand remote: remote, command: 'echo "Haha!"'
-            }
-        } 
-    }
+}
+
         }
 
     }
