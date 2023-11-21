@@ -48,9 +48,9 @@ def call(dockerRepoName, imageName) {
                                 allowAnyHosts: 'true'
                             ], command: '''
                                 cd /home/azureuser/Microservices-4850/deployment &&
-                                docker-compose down &&
+                                docker compose down &&
                                 docker image pull filetfilet/${dockerRepoName}:${imageName} &&
-                                docker-compose up -d
+                                docker compose up -d
                             '''
                         }
                     }
