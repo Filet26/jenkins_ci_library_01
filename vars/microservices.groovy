@@ -1,4 +1,4 @@
-def call() {
+def call(dockerRepoName, imageName) {
     pipeline {
     agent any
     stages {
@@ -20,8 +20,22 @@ def call() {
             }
         }
 
+        stage('Package') {
+            when {
+                expression { env.GIT_BRANCH == 'origin/main' }
+            }
+            steps {
+                withCredentials([string(credentialsId: 'DockerHubDHO', variable: 'TOKEN')]) {
+                    script {
+                        sh "docker login -u 'filetfilet' -p '$TOKEN' docker.io"
+                        sh "docker build -t ${dockerRepoName}:latest --tag filetfilet/${dockerRepoName}:${imageName} ."
+                        sh "docker push filetfilet/${dockerRepoName}:${imageName}"
+                    }
+                }
+            }
+        }
+
+        }
 
     }
-
-}
 }
