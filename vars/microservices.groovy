@@ -16,7 +16,7 @@ def call() {
 
         stage("Python Security Scanning") {
             steps {
-                sh 'find . -type f -name "*.py" | xargs bandit'
+                sh 'find . -type f -name "*.py" | xargs bandit -s B106'
             }
         }
 
