@@ -41,6 +41,7 @@ def call(dockerRepoName, imageName) {
                     withCredentials([sshUserPrivateKey(credentialsId: 'filetkafkaKEY', keyFileVariable: 'SSH_KEY_FILE', usernameVariable: 'SSH_USER')]) {
                         sshagent(['filetkafkaKEY']) {
                             sshCommand remote: [
+                                name: '20.150.206.132',
                                 host: '20.150.206.132',
                                 user: SSH_USER,
                                 identityFile: SSH_KEY_FILE,
