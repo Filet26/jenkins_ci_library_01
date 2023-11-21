@@ -46,7 +46,12 @@ def call(dockerRepoName, imageName) {
                                 user: SSH_USER,
                                 identityFile: SSH_KEY_FILE,
                                 allowAnyHosts: 'true'
-                            ], command: 'cd /home/azureuser/Microservices-4850/deployment && docker compose up -d'
+                            ], command: '''
+                                cd /home/azureuser/Microservices-4850/deployment &&
+                                docker-compose down &&
+                                docker-compose pull &&
+                                docker-compose up -d
+                            '''
                         }
                     }
                 }
