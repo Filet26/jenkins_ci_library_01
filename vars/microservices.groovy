@@ -49,7 +49,7 @@ def call(dockerRepoName, imageName) {
                             ], command: '''
                                 cd /home/azureuser/Microservices-4850/deployment &&
                                 docker-compose down &&
-                                docker-compose pull &&
+                                docker image pull filetfilet/${dockerRepoName}:${imageName} &&
                                 docker-compose up -d
                             '''
                         }
