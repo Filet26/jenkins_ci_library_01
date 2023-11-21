@@ -43,7 +43,7 @@ def call(dockerRepoName, imageName) {
 
                         sh """ssh -o StrictHostKeyChecking=no -i $SSH_KEY_FILE $SSH_USER@20.150.206.132 <<EOF
                         cd /home/azureuser/Microservices-4850/deployment
-                        docker-compose up -d
+                        docker compose up -d
                         EOF"""
                     }
                     
