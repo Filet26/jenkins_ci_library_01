@@ -38,21 +38,20 @@ def call(dockerRepoName, imageName) {
         stage('Deploy to Kafka Server - Docker Compose') {
             steps {
                 script {
-                    
                     withCredentials([sshUserPrivateKey(credentialsId: 'filetkafkaKEY', keyFileVariable: 'SSH_KEY_FILE', usernameVariable: 'SSH_USER')]) {
-
-                        sh """ssh -o StrictHostKeyChecking=no -i $SSH_KEY_FILE $SSH_USER@20.150.206.132 <<EOF
-                        cd /home/azureuser/Microservices-4850/deployment
-                        docker compose up -d
-                        EOF"""
+                        sshagent(['filetkafkaKEY']) {
+                            sshCommand remote: [
+                                host: '20.150.206.132',
+                                user: SSH_USER,
+                                identityFile: SSH_KEY_FILE,
+                                allowAnyHosts: 'true'
+                            ], command: 'cd /home/azureuser/Microservices-4850/deployment && docker compose up -d'
+                        }
                     }
-                    
-                    
-
-
                 }
             }
 }
+
 
         }
 
